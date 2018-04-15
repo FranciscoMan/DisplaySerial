@@ -44,10 +44,10 @@ si se quiere se puede dar click en un saludo, al hacer esto se seleccionará de 
 
 y al escribir sobre la texbox se podra actualizar ese mensaje para que sea diferente.
 
-* Actualizar mensaje
+* **Actualizar** mensaje
 este boton hace lo anterior descrito
-* actualizar
+* **Actualizar**
 este boton actualiza todos los mensajes al arduino, aunque se modifiquen en la lista no será
 sino hasta que se use este boton que se reflejaran en el arduino
-* mostrar
+* **Mostrar**
 si seleccionamos un mensaje y damos click en este boton se mostrará en el arduino el mensaje que hayamos seleccionado
