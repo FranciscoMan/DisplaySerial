@@ -1,7 +1,11 @@
+//este archivo Java es la interfaz la cual se comunicará con el arduino de la manera descrita en el archivo README
+//cabe mencionar que es un javaForm y fue creada con el asistente del IDE NetBeans
+//NOTA: se necesita descargar la libreria RXTX, descrita en el archivo README para lograr la comunicacion con el arduino
 
+//nombre del paquete
 package lcdprinter;
 
-
+//imports de las clases a utilizar
 import gnu.io.CommPortIdentifier;
 import gnu.io.PortInUseException;
 import gnu.io.SerialPort;
@@ -15,19 +19,26 @@ import java.util.Enumeration;
 import javax.swing.DefaultListModel;
 
 public class interfaz extends javax.swing.JFrame {
-
+    //ya que se usa un jList utilizaremos un DefaultListModel
+    //para poder rellenar ese JList que mostrará el arreglo de la forma descrita en el archivo README
     DefaultListModel modelo = new DefaultListModel();
+    //el sigueinte ArrayList almacenará los saludos
     ArrayList<String> saludos = new ArrayList<>();
-        
+    
+    //el siguiente grupo de variables es importante
+    //los valores a considerar con el nombre del puerto (coincidir con el puerto al cual el arduino este conectado)
+    //y el DATA_RATE es un parametro que debe coincidir con el que se introduce en el arduino en Serial.begin()
     private OutputStream Output = null;
     SerialPort serialPort;
     private final String PORT_NAME = "COM5";
     private static final int TIME_OUT = 2000;
     private static final int DATA_RATE = 9600;
     
-        
+    //la clase Calendar nos ayudará a tomar la hora del sistema    
     Calendar calendario = Calendar.getInstance();
     int h,s,m;
+    //el siguiente constructor nos ayuda a inicializar todos los componentes graficos de la interfaz
+    //, la conexion al arduino, el contador de letras y demas
     public interfaz() {
         initComponents();
         letras();
@@ -35,6 +46,7 @@ public class interfaz extends javax.swing.JFrame {
         ArduinoConnection();
     }
     
+    //este es el metodo para generar la conexion al arduino
      private void ArduinoConnection() {
 
         CommPortIdentifier portId = null;
@@ -72,7 +84,8 @@ public class interfaz extends javax.swing.JFrame {
         }
 
     }
-    
+    //este metodo inicializa los mensajes con los mostrados por default, pero pueden ser cambiados desde la interfaz
+    //o desde aqui
     private void inicio(){
         saludos.add("holi");
         saludos.add("que onda");
@@ -84,7 +97,7 @@ public class interfaz extends javax.swing.JFrame {
         
         lista.setModel(modelo);
     }
-    
+    //metodo para actualizar los mensajes que quieran ser cambiados desde la interfaz
     private void actualizar(String aux, int index){
             modelo.remove(index);
             saludos.remove(index);
@@ -96,7 +109,8 @@ public class interfaz extends javax.swing.JFrame {
             
         lista.setModel(modelo);
     }
-    
+    //este metodo cuenta la cantidad de caracteres que se pueden incluir en cada mensaje
+    //y bloquea si se escriben de mas
     private  void letras() {
         int caracteres = 16 - txtMensaje.getText().length(); //Indica la catidad de carcteres
         //disponibles. En el LCD solo se permite imprimir 32 caracteres.
@@ -115,7 +129,7 @@ public class interfaz extends javax.swing.JFrame {
             label1.setText("CARACTERES DISPONIBLES: " + (caracteres));
         }
     }
-
+    //los siguientes metodos son la inicializacion de los elementos graficos de la interfaz
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -217,11 +231,13 @@ public class interfaz extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    //el sigueinte metodo es un evento que se acciona cada que se teclea sobre la textbox
+    //y activa el contador de letras
     private void txtMensajeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMensajeKeyReleased
         letras();
     }//GEN-LAST:event_txtMensajeKeyReleased
-
+    //el siguiente metodo es un evento y se activa cuando se da click al boton actualizar
+    //lo que hace es tomar el saludo del textbox y actualizarlo en la lista
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         String aux=(txtMensaje.getText());
         int index = lista.getSelectedIndex();
@@ -229,7 +245,8 @@ public class interfaz extends javax.swing.JFrame {
         txtMensaje.setText("");
         letras();
     }//GEN-LAST:event_btnAddActionPerformed
-
+    //el siguiente metodo es un evento y se activa al dar click en el boton ACTUALIZAR
+    //lo que hace es mandar una actualizacion de los saludos al arduino
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         try {
             
@@ -245,7 +262,9 @@ public class interfaz extends javax.swing.JFrame {
             System.exit(ERROR);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
-
+    //el siguiente metodo es un evento y se activa al hacer click en el boton MOSTRAR
+    //lo que hace es mandar una actualizacion al arduino que haga que cambie el mensaje que se quiere mostrar en
+    //el display, para seleccionar cual saludo se desea mostrar leer el archivo README
     private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         
 try {
@@ -256,7 +275,10 @@ Output.write(data.getBytes());
             System.exit(ERROR);
         }
     }//GEN-LAST:event_btnMostrarActionPerformed
-
+    //este metodo de nombre coomunicar
+    //sirve para tomar la hora del sistema usando Calendar
+    //y mandar toda la primer comunicacion al arduino, que incluye:
+    //hora, saludos y saludo a mostrar (por default el primero)
     public void comunicar() {
         try {
             calendario = Calendar.getInstance();
