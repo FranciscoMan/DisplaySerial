@@ -34,3 +34,18 @@ https://github.com/PaulStoffregen/Time
 El LCD mostrara en todo momento una cierta hora predeterminada como 00:00:00 en un formato de 24hrs
 En la parte superior del LCD se mostraran mensajes cambiantes, siendo uno la lectura del sensor de temperatura y el otro 1 de 3 mensajes
 varios que, mediante la interfaz se podrán personalizar (como se muestra en las imagenes anteriores).
+
+## Interfaz de JAVA
+![Una imagen cualquiera](https://github.com/FranciscoMan/DisplaySerial/blob/master/interfaz1.png "interfaz")
+La interfaz es como se muetra a anteriormente. Funciona a manera que el panel derecho muestra la lista de saludos en orden,
+si se quiere se puede dar click en un saludo, al hacer esto se seleccionará de la siguiente manera
+![Una imagen cualquiera](https://github.com/FranciscoMan/DisplaySerial/blob/master/interfaz2.png "interfaz")
+y al escribir sobre la texbox se podra actualizar ese mensaje para que sea diferente.
+
+* Actualizar mensaje
+este boton hace lo anterior descrito
+* actualizar
+este boton actualiza todos los mensajes al arduino, aunque se modifiquen en la lista no será
+sino hasta que se use este boton que se reflejaran en el arduino
+* mostrar
+si seleccionamos un mensaje y damos click en este boton se mostrará en el arduino el mensaje que hayamos seleccionado
