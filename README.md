@@ -27,6 +27,9 @@ https://github.com/PaulStoffregen/Time
 ![Una imagen cualquiera](https://github.com/FranciscoMan/DisplaySerial/blob/master/img1.jpg "Prototipo")
 ![Una imagen cualquiera](https://github.com/FranciscoMan/DisplaySerial/blob/master/img2.jpg "Prototipo")
 
+## Imagen del esquema de conexion
+![Una imagen cualquiera](https://github.com/FranciscoMan/DisplaySerial/blob/master/LCD.png "Prototipo")
+
 ## Funcionalidad
 El LCD mostrara en todo momento una cierta hora predeterminada como 00:00:00 en un formato de 24hrs
 En la parte superior del LCD se mostraran mensajes cambiantes, siendo uno la lectura del sensor de temperatura y el otro 1 de 3 mensajes
